@@ -20,6 +20,9 @@ import patch_config
 import sys
 import time
 
+import matplotlib 
+matplotlib.use('TkAgg')# 这个错误通常是由于Matplotlib版本与其他相关库的兼容性问题导致的。可能的原因是Matplotlib版本与Qt库或其他依赖库版本不兼容。
+
 class PatchTrainer(object):
     def __init__(self, mode):
         self.config = patch_config.patch_configs[mode]()
@@ -66,7 +69,7 @@ class PatchTrainer(object):
                                                                 shuffle=True),
                                                    batch_size=batch_size,
                                                    shuffle=True,
-                                                   num_workers=10)
+                                                   num_workers=0)
         self.epoch_length = len(train_loader)
         print(f'One epoch is {len(train_loader)}')
 
@@ -91,7 +94,7 @@ class PatchTrainer(object):
                     p_img_batch = self.patch_applier(img_batch, adv_batch_t)
                     p_img_batch = F.interpolate(p_img_batch, (self.darknet_model.height, self.darknet_model.width))
 
-                    img = p_img_batch[1, :, :,]
+                    img = p_img_batch[0, :, :,]
                     img = transforms.ToPILImage()(img.detach().cpu())
                     #img.show()
 
@@ -199,7 +202,8 @@ def main():
 
 
     # trainer = PatchTrainer(sys.argv[1])
-    trainer = PatchTrainer("base")
+    mode = "base"
+    trainer = PatchTrainer(mode)
     trainer.train()
 
 if __name__ == '__main__':

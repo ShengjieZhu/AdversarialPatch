@@ -12,8 +12,8 @@ class BaseConfig(object):
         """
         self.img_dir = "persons/img"
         self.lab_dir = "persons/yolo-labels"
-        self.cfgfile = "cfg/yolov3.cfg"
-        self.weightfile = "weights/yolov3.weight"
+        self.cfgfile = "cfg/yolov2.cfg"
+        self.weightfile = "weights/yolov2.weights"
         self.printfile = "non_printability/30values.txt"
         self.patch_size = 300
 
@@ -24,7 +24,7 @@ class BaseConfig(object):
         self.scheduler_factory = lambda x: optim.lr_scheduler.ReduceLROnPlateau(x, 'min', patience=50)
         self.max_tv = 0
 
-        self.batch_size = 20
+        self.batch_size = 1
 
         self.loss_target = lambda obj, cls: obj * cls
 

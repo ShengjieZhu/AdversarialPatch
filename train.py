@@ -31,8 +31,8 @@ from models.tiny_yolo import TinyYoloNet
 
 # Training settings
 datacfg       = sys.argv[1]
-cfgfile       = sys.argv[2]
-weightfile    = sys.argv[3]
+cfgfile       = sys.argv[2] # cfg/yolo.cfg"
+weightfile    = sys.argv[3] # weights/yolo.weights"
 
 data_options  = read_data_cfg(datacfg)
 net_options   = parse_cfg(cfgfile)[0]
